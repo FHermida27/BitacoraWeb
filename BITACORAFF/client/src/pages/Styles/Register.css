@@ -67,7 +67,8 @@
 
 /* Mensajes de error */
 .error-message {
-  color: #e57373; /* Rojo claro */
+  background-color: gray;
+  color: red; 
   font-size: 0.9rem;
   margin-top: -0.5rem;
   margin-bottom: 1rem;
@@ -97,3 +98,16 @@
   color: #000000; /* Verde más oscuro en hover */
   text-decoration: underline;
 }
+
+.status-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.success-message {
+  background-color: #ddffdd;
+  color: #4caf50;
+}
+

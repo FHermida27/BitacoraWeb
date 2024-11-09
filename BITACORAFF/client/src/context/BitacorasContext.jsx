@@ -21,12 +21,8 @@ export function BitacoraProvider({ children }) {
     const [bitacoras, setBitacoras] = useState([]);
 
     const getBitacoras = async () => {
-        try {
             const res = await getBitacorasRequest()
             setBitacoras(res.data)
-        } catch (error) {
-            console.error(error);
-        }
     };
 
     const createBitacora = async (bitacora) => {
