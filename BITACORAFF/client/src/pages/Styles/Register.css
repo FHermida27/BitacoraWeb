@@ -1,0 +1,99 @@
+/* Contenedor principal del formulario */
+.login-container {
+  display: flex;
+  height: calc(100vh - 100px);
+  align-items: center;
+  justify-content: center;
+  background-color: #e0f7e9; /* Tono verde claro de fondo */
+  padding: 10px; /* Añadido padding para asegurar que el contenido no se salga */
+}
+
+/* Caja de login o registro */
+.login-box {
+  background-color: #2e5339; /* Verde oscuro de fondo */
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: #ffffff;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+}
+
+/* Título */
+.login-box h1 {
+  font-size: 2.5rem;
+  color: #e8f5e9; /* Verde claro para el título */
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Input */
+.login-input {
+  width: 100%;
+  background-color: #3a5f4e; /* Verde grisáceo */
+  color: #00ff15;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid #81c784; /* Borde verde claro */
+  outline: none;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+}
+
+/* Placeholder del input */
+.login-input::placeholder {
+  color: #000000; /* Verde claro para el texto de placeholder */
+}
+
+/* Botón de Register */
+.login-button {
+  width: 100%;
+  background-color: #4caf50; /* Verde vibrante para el botón */
+  color: #ffffff;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+}
+
+.login-button:hover {
+  background-color: #368139; 
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #e57373; /* Rojo claro */
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+/* Mensajes de error de registro */
+.login-error {
+  background-color: #e57373; /* Fondo rojo para errores */
+  color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Enlace de login */
+.register-link {
+  color: #00ff0d; /* Verde claro */
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #000000; /* Verde más oscuro en hover */
+  text-decoration: underline;
+}
