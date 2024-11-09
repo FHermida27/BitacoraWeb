@@ -67,7 +67,7 @@
 
 /* Mensajes de error */
 .error-message {
-  background-color: gray;
+  background-color: rgb(255, 255, 255);
   color: red; 
   font-size: 0.9rem;
   margin-top: -0.5rem;

@@ -23,6 +23,7 @@ export function BitacoraProvider({ children }) {
     const getBitacoras = async () => {
             const res = await getBitacorasRequest()
             setBitacoras(res.data)
+        
     };
 
     const createBitacora = async (bitacora) => {
