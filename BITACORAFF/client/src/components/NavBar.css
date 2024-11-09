@@ -1,26 +1,25 @@
 /* Estilos para el contenedor del navbar */
 .navbar {
-    background-color: #4b6b47; /* Verde oscuro natural */
+    background-color: #4b6b47;
     display: flex;
-    justify-content: space-between; /* Separa los elementos del navbar */
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #f0f0f0;
-    position: relative; /* Importante para mantener el contenido alineado */
 }
 
 /* Centrando el título */
 .navbar .title {
-    background-color: #6b8f71; /* Verde hoja */
+    background-color: #6b8f71;
     color: #fff;
     text-align: center;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Agregamos transición para transformación */
-    flex-grow: 1; /* Permite que el título ocupe el espacio disponible */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    flex-grow: 1;
 }
 
 .navbar h1 {
@@ -31,8 +30,8 @@
 
 .title:hover {
     background-color: #4caf50;
-    transform: scale(1.05); /* Un poco más de aumento */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3); /* Sombra más prominente */
+    transform: scale(1.05);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos para el ícono de usuario */
@@ -46,63 +45,69 @@
     display: flex;
     align-items: center;
     transition: color 0.3s ease, transform 0.3s ease;
-    position: relative; /* Necesario para alinear el dropdown */
 }
 
 /* Estilo del ícono al pasar el cursor (hover) */
 .user-icon:hover {
-    color: #cfd4cb; /* Verde claro */
-    transform: scale(1.3); /* Aumenta el tamaño */
+    color: #cfd4cb;
+    transform: scale(1.3);
 }
 
-/* Estilos para el menú desplegable */
+/* Menú desplegable */
 .dropdown {
     position: absolute;
-    background-color: #4b6b47; /* Fondo del dropdown */
+    background-color: #4b6b47;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    top: 4rem; /* Ajuste de la posición para estar más cerca del icono */
-    right: 0; /* Alinea el menú desplegable a la derecha del icono */
-    display: none; /* Oculto por defecto */
+    top: 4rem;
+    right: 0;
+    display: none;
     flex-direction: column;
     gap: 0.5rem;
-    transform: scale(0.95); /* Inicialmente más pequeño para el efecto */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Transición para el desplegable */
-    opacity: 0; /* Inicialmente oculto */
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.user-icon:hover + .dropdown {
-    display: flex; /* Muestra el dropdown al pasar el cursor */
-    transform: scale(1); /* Restaura el tamaño original */
-    opacity: 1; /* Hace que el menú sea visible */
-}
-
-/* Botones dentro del menú desplegable */
-.dropdown .btn-primary {
-    width: 100%;
-    text-align: center;
-    background-color: #6b8f71; /* Fondo verde para los botones */
-    color: #f0f0f0;
-    padding: 0.8rem;
-    border-radius: 6px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown .btn-primary:hover {
-    background-color: #5a7860; /* Tono más oscuro en hover */
-}
-
-.dropdown .btn-primary:focus {
-    outline: none; /* Elimina el borde al enfocar los botones */
-}
-
-/* Hacer que el dropdown sea más dinámico */
+.user-icon:focus + .dropdown,
 .dropdown:hover {
-    display: flex; /* Asegura que el menú se quede visible al pasar el cursor sobre el dropdown */
-    transform: scale(1); /* Establece el tamaño normal */
-    opacity: 1; /* Asegura que esté visible */
+    display: flex;
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Estilos de los botones "Añadir Bitácora" y "Cerrar Sesión" */
+.btn-add-bitacora,
+.btn-logout {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-add-bitacora {
+    background-color: #4caf50;
+    color: #ffffff;
+}
+
+.btn-add-bitacora:hover {
+    background-color: #388e3c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: #ffffff;
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
 }

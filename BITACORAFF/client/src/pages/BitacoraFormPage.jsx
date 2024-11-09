@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useBitacoras } from '../context/BitacorasContext'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import "./Styles/BitacoraFormPage.css"
 
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -13,7 +14,6 @@ const BitacorasFormPage = () => {
   const { createBitacora, getBitacora, updateBitacora } = useBitacoras()
   const navigate = useNavigate();
   const params = useParams()
-
 
   useEffect(() => {
     async function loadBitacora() {
@@ -51,56 +51,99 @@ const BitacorasFormPage = () => {
 
   return (
     <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
-
-      <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
-
-        <form onSubmit={onSubmit}>
-          <label htmlFor="titulo">Titulo</label>
-          <input type="text" placeholder="Título"
-            {...register('titulo')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-            autoFocus
-          />
-          <label htmlFor="localizacion_geografica">Localización Geográfica</label>
-          <input type="text" placeholder="Localización geográfica"
-            {...register('localizacion_geografica')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-          />
-          <label htmlFor="condiciones_climaticas_durante_muestreo">Condiciones climáticas durante el muestreo</label>
-          <input type="text" placeholder="Condiciones climáticas durante el muestreo"
-            {...register('condiciones_climaticas_durante_muestreo')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-          />
-          <label htmlFor="descripcion_habitat">Descripción del Hábitat</label>
-          <input type="text" placeholder="Descripción del hábitat"
-            {...register('descripcion_habitat')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-          />
-          <label htmlFor="Fotografías">URL Fotografías</label>
-          <input type="text" placeholder="Fotografías"
-            {...register('fotografias')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-          />
-          <label htmlFor="detalles_especies_recolectadas">Detalles de las especies recolectadas</label>
-          <input type="text" placeholder="Detalles especies recolectadas"
-            {...register('detalles_especies_recolectadas')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-          />
-          <label htmlFor="observaciones_adicionales">Observaciones adicionales</label>
-          <input type="text" placeholder="Observaciones adicionales"
-            {...register('observaciones_adicionales')}
-            className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-          />
-
-          <label htmlFor="date">Date</label>
-          <input className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2' type="date" {...register('date')} />
-
-          <button className=' bg-indigo-500 px-3 py-2 rounded-md' >Guardar</button>
-
-        </form>
-
-      </div>
+      <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md items-center'>
+      <div class="form-fields">
+      <form onSubmit={onSubmit}>
+    <h2>Registro</h2>
+    <div className="form-fields">
+        <div className="form-group">
+            <label htmlFor="titulo">Título</label>
+            <input
+                type="text"
+                id="titulo"
+                placeholder="Título"
+                {...register('titulo')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                autoFocus
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="localizacion_geografica">Localización Geográfica</label>
+            <input
+                type="text"
+                id="localizacion_geografica"
+                placeholder="Localización geográfica"
+                {...register('localizacion_geografica')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="condiciones_climaticas_durante_muestreo">Condiciones Climáticas</label>
+            <input
+                type="text"
+                id="condiciones_climaticas_durante_muestreo"
+                placeholder="Condiciones climáticas durante el muestreo"
+                {...register('condiciones_climaticas_durante_muestreo')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="descripcion_habitat">Descripción del Hábitat</label>
+            <input
+                type="text"
+                id="descripcion_habitat"
+                placeholder="Descripción del hábitat"
+                {...register('descripcion_habitat')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="fotografias">URL Fotografías</label>
+            <input
+                type="text"
+                id="fotografias"
+                placeholder="Fotografías"
+                {...register('fotografias')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="detalles_especies_recolectadas">Detalles de Especies</label>
+            <input
+                type="text"
+                id="detalles_especies_recolectadas"
+                placeholder="Detalles especies recolectadas"
+                {...register('detalles_especies_recolectadas')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="observaciones_adicionales">Observaciones Adicionales</label>
+            <input
+                type="text"
+                id="observaciones_adicionales"
+                placeholder="Observaciones adicionales"
+                {...register('observaciones_adicionales')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
+        <div className="form-group">
+            <label htmlFor="date">Fecha</label>
+            <input
+                type="date"
+                id="date"
+                {...register('date')}
+                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            />
+        </div>
     </div>
+    <button className="bg-indigo-500 px-3 py-2 rounded-md">Guardar</button>
+</form>
+
+        </div>
+        </div>
+      </div>
+    
   )
 }
 

@@ -5,4 +5,12 @@ const instance = axios.create({
     withCredentials: true
 })
 
+export const getBitacorasRequest = (token) => 
+    axios.get('/api/bitacoras', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  
+
 export default instance
