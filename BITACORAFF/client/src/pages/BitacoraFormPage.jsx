@@ -54,7 +54,7 @@ const BitacorasFormPage = () => {
       <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md items-center'>
       <div class="form-fields">
       <form onSubmit={onSubmit}>
-    <h2>Registro</h2>
+    <h2 >Registro</h2>
     <div className="form-fields">
         <div className="form-group">
             <label htmlFor="titulo">Título</label>

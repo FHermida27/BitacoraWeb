@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useBitacoras } from "../context/BitacorasContext"
 import BitacoraCard from "../components/BitacoraCard";
+import "./Styles/BitacorasPage.css"
 
 const BitacorasPage = () => {
   const { getBitacoras, bitacoras } = useBitacoras();

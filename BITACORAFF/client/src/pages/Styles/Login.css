@@ -1,7 +1,7 @@
 /* Contenedor principal del formulario */
 .login-container {
   display: flex;
-  height: calc(100vh - 100px);
+ 
   align-items: center;
   justify-content: center;
   background-color: #e0f7e9; /* Tono verde claro de fondo */
@@ -11,7 +11,7 @@
 /* Caja de login */
 .login-box {
   background-color: #32ac56; /* Verde oscuro de fondo */
-  max-width: 400px;
+  max-width: 600px;
   width: 100%;
   padding: 2rem;
   border-radius: 10px;
