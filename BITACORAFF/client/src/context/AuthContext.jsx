@@ -39,22 +39,24 @@ export const AuthProvider = ({ children }) => {
     //         setErrors([error.response.data.message])
     //     }
     // };
-
-const signin = async (user) => {
-  const navigate = useNavigate();
-  try {
-    const res = await loginRequest(user);
-    setIsAuthenticated(true);
-    console.log(res)
-    setUser(res.data);
-    navigate('/bitacoras');  // Redirigir a la página de bitácoras
-  } catch (error) {
-    if (Array.isArray(error.response.data)) {
-      return setErrors(error.response.data);
-    }
-    setErrors([error.response.data.message]);
-  }
-};
+    const signin = async (data) => {
+        try {
+            const res = await loginRequest(data); // Cambia 'user' a 'data'
+            console.log(res);
+            
+            setIsAuthenticated(true);
+            setUser(res.data);
+    
+        } catch (error) {
+            if (error.response && Array.isArray(error.response.data)) {
+                setErrors(error.response.data);
+            } else {
+                setErrors([error.response?.data?.message || 'Inicio de sesión fallido']);
+            }
+        }
+    };
+    
+      
 
 
     const logout = () => {

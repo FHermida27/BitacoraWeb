@@ -1,12 +1,12 @@
-import { useBitacoras } from "../context/BitacorasContext"
-import { Link } from "react-router-dom"
-import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
-import "./BitacoraCard.css"
-dayjs.extend(utc)
+import { useBitacoras } from "../context/BitacorasContext";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import "./BitacoraCard.css";
+dayjs.extend(utc);
 
 const BitacoraCard = ({ bitacora }) => {
-    const { deleteBitacora } = useBitacoras()
+    const { deleteBitacora } = useBitacoras();
 
     return (
         <div className="card-container">
@@ -51,7 +51,9 @@ const BitacoraCard = ({ bitacora }) => {
                 <div className="card-info-column">
                     <div className="info-row">
                         <label><font color="red"><strong>Fotografías:</strong></font></label>
-                        <p>{bitacora.fotografias}</p>
+                        <p className="photo-link" onClick={() => window.open(bitacora.fotografias, "_blank")}>
+                            {bitacora.fotografias}
+                        </p>
                     </div>
                     <div className="info-row">
                         <label><font color="red"><strong>Detalles Especies Recolectadas:</strong></font></label>
@@ -64,7 +66,7 @@ const BitacoraCard = ({ bitacora }) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default BitacoraCard
+export default BitacoraCard;

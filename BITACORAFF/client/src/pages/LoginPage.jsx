@@ -10,9 +10,14 @@ const LoginPage = () => {
   const { signin, errors: signinErrors, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
+  // const onSubmit = handleSubmit(data => {
+  //   signin(data);
+  // });
   const onSubmit = handleSubmit(data => {
+    console.log("Datos enviados:", data);
     signin(data);
   });
+  
 
   useEffect(() => {
     if (isAuthenticated) navigate('/bitacoras');
