@@ -1,17 +1,18 @@
 /* Contenedor principal del formulario */
 .login-container {
   display: flex;
-  height: calc(100vh - 100px);
+  height: 100vh; /* Usa toda la altura de la ventana */
   align-items: center;
   justify-content: center;
   background-color: #e0f7e9; /* Tono verde claro de fondo */
-  padding: 10px; /* Añadido padding para asegurar que el contenido no se salga */
+  padding: 0 20px; /* Añadido padding para asegurar que el contenido no se salga */
+  box-sizing: border-box;
 }
 
 /* Caja de login o registro */
 .login-box {
   background-color: #2e5339; /* Verde oscuro de fondo */
-  max-width: 400px;
+  max-width: 450px; /* Aumento el tamaño máximo */
   width: 100%;
   padding: 2rem;
   border-radius: 10px;
@@ -19,11 +20,15 @@
   text-align: center;
   color: #ffffff;
   box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Asegura el espaciado adecuado entre los elementos */
 }
 
 /* Título */
 .login-box h1 {
-  font-size: 2.5rem;
+  font-size: 2rem; /* Ajusto el tamaño del título */
   color: #e8f5e9; /* Verde claro para el título */
   font-weight: bold;
   margin-bottom: 1.5rem;
@@ -40,6 +45,55 @@
   border: 1px solid #81c784; /* Borde verde claro */
   outline: none;
   box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+}
+
+/* Contenedor de la selección de roles */
+.role-selection {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  justify-content: center; /* Centra los elementos de los roles */
+  width: 100%; /* Asegura que ocupe el 100% del espacio disponible */
+}
+
+/* Estilo de los botones de radio */
+.role-radio {
+  display: none; /* Ocultamos el input de tipo radio */
+}
+
+/* Estilo de los círculos */
+.role-circle {
+  display: inline-block;
+  width: 25px; /* Aumento el tamaño del círculo */
+  height: 25px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+/* Cuando el radio está seleccionado */
+.role-radio:checked + .role-circle {
+  background-color: #ff0000; /* Color verde al seleccionar */
+}
+
+/* Estilo de las etiquetas de los roles */
+.role-label {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-direction: column; /* Centra verticalmente el texto */
+  justify-content: center; /* Centra verticalmente */
+}
+
+/* Estilos de los mensajes de error */
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
 }
 
 /* Placeholder del input */
@@ -59,6 +113,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+  margin-top: 1rem; /* Espacio por encima del botón */
 }
 
 .login-button:hover {
@@ -110,4 +165,3 @@
   background-color: #ddffdd;
   color: #4caf50;
 }
-

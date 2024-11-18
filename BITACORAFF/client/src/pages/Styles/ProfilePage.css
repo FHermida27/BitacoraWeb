@@ -1,0 +1,104 @@
+/* Contenedor principal */
+.profile-container {
+    padding: 2rem;
+    background-color: #1f6918;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Aumenté el ancho máximo */
+    margin: 0 auto;
+    padding: auto;
+}
+
+/* Sección de perfil */
+.profile-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 2rem; /* Espacio entre las columnas */
+    width: 90%;
+}
+
+/* Información del usuario */
+.profile-info {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    color: #333;
+}
+
+h3{
+    text-align: center;
+    justify-content: center;
+}
+
+.profile-info h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #4CAF50; /* Verde para el título */
+    text-align: center;
+}
+
+.profile-info p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Contenedor de bitácoras */
+.bitacoras-info {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    color: #333;
+}
+
+.bitacoras-info h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #4CAF50; /* Verde para el título */
+}
+
+.bitacoras-info p {
+    color: #777;
+    font-size: 1rem;
+}
+
+/* Estilos de los botones de las bitácoras */
+.bitacora-button {
+    display: inline-block;
+    margin: 0.5rem 0;
+    text-decoration: none;
+}
+
+.bitacora-button button {
+    background-color: #4CAF50; /* Verde brillante */
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.bitacora-button button:hover {
+    background-color: #388e3c; /* Verde más oscuro al pasar el mouse */
+}
+
+/* Cuando no hay bitácoras creadas */
+.bitacoras-info p {
+    color: #777;
+    font-size: 1rem;
+}
+
+/* Diseño responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .profile-sections {
+        grid-template-columns: 1fr; /* En pantallas pequeñas, se vuelve una columna */
+    }
+}

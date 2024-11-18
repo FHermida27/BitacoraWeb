@@ -23,7 +23,6 @@ export function BitacoraProvider({ children }) {
     const getBitacoras = async () => {
             const res = await getBitacorasRequest()
             setBitacoras(res.data)
-        
     };
 
     const createBitacora = async (bitacora) => {
@@ -51,13 +50,22 @@ export function BitacoraProvider({ children }) {
         }
     };
 
+    // const updateBitacora = async (id, bitacora) => {
+    //     try {
+    //         await updateBitacoraRequest(id, bitacora)
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
     const updateBitacora = async (id, bitacora) => {
         try {
-            await updateBitacoraRequest(id, bitacora)
+            const res = await updateBitacoraRequest(id, bitacora);
+            setBitacoras((prev) => prev.map(b => b._id === id ? res.data : b));
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
+   
 
     return <BitacoraContext.Provider value={{
         bitacoras,

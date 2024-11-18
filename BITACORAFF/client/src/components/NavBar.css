@@ -1,6 +1,6 @@
 /* Estilos para el contenedor del navbar */
 .navbar {
-    background-color: #4b6b47;
+    background-color: #3b8f30;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,18 +8,21 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #f0f0f0;
+    position: relative;
 }
 
 /* Centrando el título */
 .navbar .title {
-    background-color: #6b8f71;
-    color: #fff;
+    background-color: #41724a;
+    color: #f0e68c;
     text-align: center;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
     flex-grow: 1;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .navbar h1 {
@@ -29,19 +32,19 @@
 }
 
 .title:hover {
-    background-color: #4caf50;
+    background-color: #36c729;
     transform: scale(1.05);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos para el ícono de usuario */
 .user-icon {
-    background: none;
-    border: none;
+    background: black;
+    border: solid rgb(255, 255, 255);
     color: #f0f0f0;
     cursor: pointer;
     padding: 1rem;
-    font-size: 2rem;
+    font-size: 3rem;
     display: flex;
     align-items: center;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -49,65 +52,96 @@
 
 /* Estilo del ícono al pasar el cursor (hover) */
 .user-icon:hover {
-    color: #cfd4cb;
+    background-color: #fff;
+    color: #000000;
     transform: scale(1.3);
 }
 
 /* Menú desplegable */
 .dropdown {
     position: absolute;
-    background-color: #4b6b47;
+    top: 80%;
+    background-color: #48ff00;
+    margin: 5px;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    top: 4rem;
     right: 0;
-    display: none;
+    display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 0.5rem;
-    opacity: 0;
+    gap: 1.5rem; /* Espaciado entre botones */
     transition: transform 0.3s ease, opacity 0.3s ease;
+    width: 100px; /* Ancho fijo para evitar colisión */
+    z-index: 100; /* Asegura que el dropdown esté por encima de otros elementos */
 }
 
+/* Mostrar menú desplegable al hacer clic en el ícono de usuario */
 .user-icon:focus + .dropdown,
 .dropdown:hover {
     display: flex;
-    transform: scale(1);
     opacity: 1;
 }
 
-/* Estilos de los botones "Añadir Bitácora" y "Cerrar Sesión" */
+/* Contenedor de los botones */
+.menu {
+    display: flex;
+    flex-direction: column; /* Alineación vertical */
+    gap: 1.5rem; /* Espaciado entre los botones */
+}
+
+/* Estilos generales para botones del menú */
 .btn-add-bitacora,
-.btn-logout {
-    width: 100%;
+.btn-logout,
+.btn-profile {
     padding: 0.8rem 1.2rem;
     font-size: 1.1rem;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 10px;
     text-align: center;
     cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
+
+
+/* Botón de perfil sin fondo */
+.btn-profile {
+    background: none;
+    color: #1100fd;
+    border: 2px solid #ffffff;
+}
+
+.btn-profile:hover {
+    background-color: black;
+    color: #ffffff;
+    border-color: #00ff08;
+}
+
+/* Estilo del botón "Añadir Bitácora" */
 .btn-add-bitacora {
     background-color: #4caf50;
     color: #ffffff;
 }
 
 .btn-add-bitacora:hover {
-    background-color: #388e3c;
+    background-color: #4b1f1f;
+    border-color: #030303;
+    color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
+    transform: translateY(-2px);
 }
 
+/* Estilo del botón "Cerrar Sesión" */
 .btn-logout {
     background-color: #f44336;
     color: #ffffff;
 }
 
 .btn-logout:hover {
-    background-color: #d32f2f;
+    background-color: #ff7961;
+    border-color: #d32f2f;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
+    transform: translateY(-2px);
 }

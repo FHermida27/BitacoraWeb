@@ -12,7 +12,19 @@ export const useAuth = () => {
     }
     return context;
 };
-
+ // const signin = async (user) => {
+    //     try {
+    //         const res = await loginRequest(user)
+    //         console.log(res)
+    //         setIsAuthenticated(true)
+    //         setUser(res.data)
+    //     } catch (error) {
+    //         if (Array.isArray(error.response.data)) {
+    //             return setErrors(error.response.data)
+    //         }
+    //         setErrors([error.response.data.message])
+    //     }
+    // };
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,19 +38,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
     };
 
-    // const signin = async (user) => {
-    //     try {
-    //         const res = await loginRequest(user)
-    //         console.log(res)
-    //         setIsAuthenticated(true)
-    //         setUser(res.data)
-    //     } catch (error) {
-    //         if (Array.isArray(error.response.data)) {
-    //             return setErrors(error.response.data)
-    //         }
-    //         setErrors([error.response.data.message])
-    //     }
-    // };
+   
     const signin = async (data) => {
         try {
             const res = await loginRequest(data); // Cambia 'user' a 'data'
