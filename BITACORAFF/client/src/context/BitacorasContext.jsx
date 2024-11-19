@@ -18,10 +18,9 @@ export const useBitacoras = () => {
 
 export const BitacoraProvider = ({ children }) => {
     const [bitacoras, setBitacoras] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Para obtener todas las bitácoras (admin)
     const getAllBitacoras = async () => {
         try {
             setLoading(true);
@@ -29,13 +28,12 @@ export const BitacoraProvider = ({ children }) => {
             setBitacoras(res.data);
         } catch (error) {
             console.error(error);
-            setError('Error al cargar las bitácoras');
+            setError('Error al obtener las bitácoras');
         } finally {
             setLoading(false);
         }
     };
 
-    // Para obtener las bitácoras del usuario actual
     const getUserBitacoras = async () => {
         try {
             setLoading(true);
@@ -43,22 +41,26 @@ export const BitacoraProvider = ({ children }) => {
             setBitacoras(res.data);
         } catch (error) {
             console.error(error);
-            setError('Error al cargar tus bitácoras');
+            setError('Error al obtener las bitácoras del usuario');
         } finally {
             setLoading(false);
         }
     };
-
-    const createBitacora = async (bitacora) => {
-        try {
-            const res = await createBitacoraRequest(bitacora);
-            setBitacoras([...bitacoras, res.data]);
-            return res.data;
-        } catch (error) {
-            console.error(error);
-            setError('Error al crear la bitácora');
-        }
-    };
+    
+        const createBitacora = async (bitacora) => {
+            try {
+                setLoading(true);
+                const res = await createBitacoraRequest(bitacora);
+                setBitacoras([...bitacoras, res.data]);
+                return res.data;
+            } catch (error) {
+                console.error("Error al crear bitácora:", error);
+                setError(error.response?.data?.message || 'Error al crear la bitácora');
+                throw error;
+            } finally {
+                setLoading(false);
+            }
+        };
 
     const deleteBitacora = async (id) => {
         try {

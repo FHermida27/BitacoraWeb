@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
 import { useBitacoras } from '../context/BitacorasContext';
+import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import './Styles/AllBitacorasPage.css';
 
 const AllBitacoraPage = () => {
-  const { getAllBitacoras, bitacoras, loading, error } = useBitacoras();
+  const { getAllBitacoras, bitacoras, loading, error, deleteBitacora } = useBitacoras();
+  const { user } = useAuth();
 
   useEffect(() => {
     getAllBitacoras();
   }, []);
 
-  // Función para capitalizar la primera letra
-  const capitalizeFirstLetter = (string) => {
-    return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
-  };
-
-
   if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (loading) return <p>Cargando bitácoras...</p>;
 
   return (
     <div className="all-bitacora-page">
@@ -24,33 +22,44 @@ const AllBitacoraPage = () => {
         {bitacoras.length > 0 ? (
           bitacoras.map((bitacora) => (
             <div key={bitacora._id} className="bitacora-card">
-              <h3 className="bitacora-title">{bitacora.titulo}</h3>
+              {/* Título como botón que enlaza a BitacoraDetailPage */}
+              <Link 
+                to={`/bitacora/${bitacora._id}`} 
+                className="bitacora-title-link"
+              >
+                <h3>{bitacora.titulo}</h3>
+              </Link>
               <div className="bitacora-info">
-                <p>
-                  <span>Creador:</span> {bitacora.user?.username || 'Usuario desconocido'}
-                </p>
-                <p>
-                  <span>Rol:</span> {capitalizeFirstLetter(bitacora.user?.role || 'No especificado')}
-                </p>
-                <p>
-                  <span>Localización:</span> {bitacora.localizacion_geografica}
-                </p>
-                <p>
-                  <span>Especies:</span> {bitacora.detalles_especies_recolectadas}
-                </p>
-                <p>
-                  <span>Fecha:</span> {new Date(bitacora.createdAt).toLocaleDateString()}
-                </p>
-                <p>
-                  <span>Condiciones Climáticas:</span> {bitacora.condiciones_climaticas_durante_muestreo}
-                </p>
-                <p>
-                  <span>Descripción del Hábitat:</span> {bitacora.descripcion_habitat}
-                </p>
-                {bitacora.observaciones_adicionales && (
+                <p><strong>Localización:</strong> {bitacora.localizacion_geografica}</p>
+                <p><strong>Fecha:</strong> {new Date(bitacora.date).toLocaleDateString()}</p>
+                <div className="creator-info">
                   <p>
-                    <span>Observaciones:</span> {bitacora.observaciones_adicionales}
+                    <strong>Creado por:</strong>{" "}
+                    <span className="creator-name">
+                      {bitacora.user?.username || "Usuario desconocido"}
+                    </span>
                   </p>
+                </div>
+              </div>
+              <div className="card-actions">
+                <Link 
+                  to={`/bitacoras/${bitacora._id}`} 
+                  className="edit-btn"
+                >
+                  Editar
+                </Link>
+                {user.role === "administrador" && (
+                  <button 
+                    onClick={() => {
+                      const confirmed = window.confirm("¿Estás seguro de que deseas eliminar esta bitácora?");
+                      if (confirmed) {
+                        deleteBitacora(bitacora._id);
+                      }
+                    }}
+                    className="delete-btn"
+                  >
+                    Eliminar
+                  </button>
                 )}
               </div>
             </div>

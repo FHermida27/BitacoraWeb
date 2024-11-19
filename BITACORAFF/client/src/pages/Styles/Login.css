@@ -1,7 +1,7 @@
 /* Contenedor principal del formulario */
 .login-container {
   display: flex;
- 
+
   align-items: center;
   justify-content: center;
   background-color: #e0f7e9; /* Tono verde claro de fondo */

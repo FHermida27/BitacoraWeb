@@ -1,37 +1,31 @@
-import express from "express";
-import morgan from "morgan";
-import cookieParser from "cookie-parser";
-import cors from 'cors'
+import express from 'express';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
-import authRoutes from './routes/auth.routes.js'
-import bitacorasRoutes from './routes/bitacoras.routes.js'
+import authRoutes from './routes/auth.routes.js';
+import bitacoraRoutes from './routes/bitacoras.routes.js';
+import userRoutes from './routes/user.routes.js';  // Añade esta línea
 
 const app = express();
 
-// app.use(cors({
-//     origin: 'http://localhost:5173',
-//     // origin: 'https://bitacora-web-2.vercel.app/',
-//     credentials: true
-// }));
-
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    credentials: true
 }));
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cookieParser()); 
+app.use(cookieParser());
 
-app.get('/favicon.ico', (req, res) => res.status(204));
+app.use('/api', authRoutes);
+app.use('/api', bitacoraRoutes);
+app.use('/api', userRoutes);  // Añade esta línea
 
-app.get('/', (req, res) => {
-    res.send('Bienvenido a la aplicación de Bitácoras'); 
+// Middleware para debugging de rutas
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`);
+    next();
 });
 
-app.use("/api", authRoutes);
-app.use("/api", bitacorasRoutes);
-
-export default app; 
+export default app;

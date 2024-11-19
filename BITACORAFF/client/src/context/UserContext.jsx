@@ -1,12 +1,16 @@
 import { createContext, useContext, useState } from 'react';
-import axios from '../api/axios';
+import { 
+    getUsersRequest, 
+    updateUserRequest, 
+    deleteUserRequest 
+} from '../api/users';
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
 export const useUsers = () => {
     const context = useContext(UserContext);
     if (!context) {
-        throw new Error('useUsers debería usarse con un UserProvider');
+        throw new Error('useUsers debe usarse dentro de un UserProvider');
     }
     return context;
 };
@@ -18,12 +22,38 @@ export function UserProvider({ children }) {
 
     const getUsers = async () => {
         try {
-            const response = await axios.get('/users');
+            setLoading(true);
+            const response = await getUsersRequest();
             setUsers(response.data);
-            setLoading(false);
+            setError(null);
         } catch (error) {
-            setError(error.message);
+            setError('Error al obtener usuarios');
+            console.error("Error al obtener usuarios:", error);
+        } finally {
             setLoading(false);
+        }
+    };
+
+    const updateUser = async (userId, userData) => {
+        try {
+            const response = await updateUserRequest(userId, userData);
+            setUsers(users.map(user => 
+                user._id === userId ? response.data : user
+            ));
+            return response.data;
+        } catch (error) {
+            setError('Error al actualizar usuario');
+            throw error;
+        }
+    };
+
+    const deleteUser = async (userId) => {
+        try {
+            await deleteUserRequest(userId);
+            setUsers(users.filter(user => user._id !== userId));
+        } catch (error) {
+            setError('Error al eliminar usuario');
+            throw error;
         }
     };
 
@@ -31,6 +61,8 @@ export function UserProvider({ children }) {
         <UserContext.Provider value={{ 
             users, 
             getUsers, 
+            updateUser,
+            deleteUser,
             loading, 
             error 
         }}>

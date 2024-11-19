@@ -1,100 +1,149 @@
-/* Estilo general para la página */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #38c038;
-    color: #ffffff;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    height: 100vh;
-}
-
-/* Contenedor principal */
 .flex {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 2px;
+    align-items: flex-start;
+    min-height: calc(100vh - 100px);
+    padding: 2rem;
+    background-color: #e8f5e9; /* Verde claro natural */
 }
 
-/* Fondo oscuro para el formulario */
 .bg-zinc-800 {
-    background-color: #1f2937;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #ffffff; /* Blanco para contraste */
     width: 100%;
-    padding: 20px;
-}
-
-/* Formulario */
-form {
-    background-color: #1a202c;
-    border-radius: 10px;
-    padding: 30px;
-    width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
+    border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Contenedor para los campos en dos columnas */
-.form-group {
+.form-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid #c8e6c9; /* Verde suave */
+}
+
+.form-header h2 {
+    color: #2e7d32; /* Verde oscuro para texto */
+    font-size: 2rem;
+    margin: 0;
+}
+
+.form-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Label a la izquierda (1fr) y input a la derecha (2fr) */
-    align-items: center;
-    gap: 10px; /* Espacio entre label e input */
-    margin-bottom: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
 }
 
-/* Estilo para las etiquetas */
-label {
-    font-size: 1rem;
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4e342e; /* Marrón para etiquetas */
     font-weight: 600;
-    color: #e2e8f0;
 }
 
-/* Estilo para los campos de entrada */
-input[type="text"],
-input[type="date"] {
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
-    background-color: #374151;
-    color: white;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: none;
+    padding: 0.75rem;
+    border: 1px solid #a5d6a7; /* Verde pálido */
+    border-radius: 4px;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
 }
 
-input:focus {
-    background-color: #2d3748;
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #66bb6a; /* Verde vibrante */
+    box-shadow: 0 0 0 2px rgba(102, 187, 106, 0.2);
     outline: none;
-    border: 2px solid #4c51bf;
 }
 
-/* Botón */
-button {
-    width: 100%;
-    padding: 12px 16px;
-    background-color: #4c51bf;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 8px;
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.error-message {
+    color: #d32f2f; /* Rojo para errores */
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.submit-button,
+.cancel-button {
+    padding: 0.75rem 2rem;
     border: none;
+    border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
+    transition: all 0.3s ease;
+    min-width: 150px;
 }
 
-button:hover {
-    background-color: #434190;
+.submit-button {
+    background-color: #388e3c; /* Verde oscuro */
+    color: white;
 }
 
-/* Ajuste para pantallas pequeñas */
+.submit-button:hover:not(:disabled) {
+    background-color: #2e7d32;
+}
+
+.submit-button:disabled {
+    background-color: #a5d6a7; /* Verde pálido */
+    cursor: not-allowed;
+}
+
+.cancel-button {
+    background-color: #6d4c41; /* Marrón para cancelar */
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #5d4037;
+}
+
+@media (max-width: 1200px) {
+    .bg-zinc-800 {
+        margin: 0 1rem;
+    }
+}
+
 @media (max-width: 768px) {
-    .form-group {
-        grid-template-columns: 1fr; /* Cambia a una columna para pantallas pequeñas */
+    .flex {
+        padding: 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .submit-button,
+    .cancel-button {
+        width: 100%;
     }
 }

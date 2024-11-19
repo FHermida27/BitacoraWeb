@@ -1,8 +1,6 @@
-import axios from './axios';  // Asegúrate de que esta ruta sea correcta
+import axios from './axios';
 
-export const getUsersRequest = () => axios.get("/users");
-
-export const createUserRequest = (user) => axios.post("/users", user);
+export const getUsersRequest = () => axios.get('/users');
 
 export const updateUserRequest = (id, user) => axios.put(`/users/${id}`, user);
 

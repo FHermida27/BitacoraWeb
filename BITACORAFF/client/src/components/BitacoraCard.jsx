@@ -35,6 +35,27 @@ const BitacoraCard = ({ bitacora }) => {
                         <p>{bitacora.localizacion_geografica}</p>
                     </div>
                     <div className="info-row">
+                        <label><strong>Nombre Científico:</strong></label>
+                        <p>{bitacora.nombre_cientifico || 'No especificado'}</p>
+                    </div>
+                    <div className="info-row">
+                        <label><strong>Nombre Común:</strong></label>
+                        <p>{bitacora.nombre_comun || 'No especificado'}</p>
+                    </div>
+                    <div className="info-row">
+                        <label><strong>Familia:</strong></label>
+                        <p>{bitacora.familia || 'No especificado'}</p>
+                    </div>
+                    <div className="info-row">
+                        <label><strong>Cantidad de Muestras:</strong></label>
+                        <p>{bitacora.cantidad_muestras || 'No especificado'}</p>
+                    </div>
+                    <div className="info-row">
+                        <label><strong>Estado de la Planta:</strong></label>
+                        <p>{bitacora.estado_planta || 'No especificado'}</p>
+                    </div>
+                    
+                    <div className="info-row">
                         <label><font color="red"><strong>Condiciones Climáticas:</strong></font></label>
                         <p>{bitacora.condiciones_climaticas_durante_muestreo}</p>
                     </div>

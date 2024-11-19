@@ -22,8 +22,11 @@ const BitacoraDetailPage = () => {
 
   return (
     <div className="bitacora-detail-container">
-      {/* Botón de "Atrás" */}
-      <button className="back-button" onClick={() => navigate('/profile')}>
+      {/* Botón de "Atrás" que usa el historial del navegador */}
+      <button 
+        className="back-button" 
+        onClick={() => navigate(-1)} // Esto llevará a la página anterior
+      >
         &#8592; Atrás
       </button>
 

@@ -9,7 +9,6 @@ const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  // Cerrar el menú si se hace clic fuera del botón o menú
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -40,20 +39,21 @@ const NavBar = () => {
                 Añadir Bitácora
               </Link>
             </li>
-            {/* Mostrar botones solo si el rol es 'administrador' */}
+            {/* Mostrar "Ver todas las Bitácoras" para administradores y colaboradores */}
+            {(user.role === "administrador" || user.role === "colaborador") && (
+              <li>
+                <Link to="/all-bitacoras" className="btn-primary">
+                  Ver todas las Bitácoras
+                </Link>
+              </li>
+            )}
+            {/* Mostrar "Ver usuarios" solo para administradores */}
             {user.role === "administrador" && (
-              <>
-                <li>
-                  <Link to="/all-bitacoras" className="btn-primary">
-                    Ver todas las Bitácoras
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/all-users" className="btn-primary">
-                    Ver usuarios
-                  </Link>
-                </li>
-              </>
+              <li>
+                <Link to="/all-users" className="btn-primary">
+                  Ver usuarios
+                </Link>
+              </li>
             )}
             <li>
               <Link to="/" onClick={logout}>
@@ -63,10 +63,7 @@ const NavBar = () => {
           </>
         ) : (
           <li ref={menuRef}>
-            <button
-              className="user-icon"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
+            <button className="user-icon" onClick={() => setMenuOpen(!menuOpen)}>
               <FaUserCircle size={24} />
             </button>
             {menuOpen && (
