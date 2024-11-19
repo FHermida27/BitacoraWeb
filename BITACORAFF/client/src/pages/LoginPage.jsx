@@ -13,10 +13,14 @@ const LoginPage = () => {
   // const onSubmit = handleSubmit(data => {
   //   signin(data);
   // });
-  const onSubmit = handleSubmit(data => {
-    console.log("Datos enviados:", data);
-    signin(data);
-  });
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+        console.log("Datos enviados:", data);
+        await signin(data);
+    } catch (error) {
+        console.error("Error en login:", error);
+    }
+});
   
 
   useEffect(() => {

@@ -8,11 +8,19 @@ import bitacorasRoutes from './routes/bitacoras.routes.js'
 
 const app = express();
 
+// app.use(cors({
+//     origin: 'http://localhost:5173',
+//     // origin: 'https://bitacora-web-2.vercel.app/',
+//     credentials: true
+// }));
+
 app.use(cors({
     origin: 'http://localhost:5173',
-    // origin: 'https://bitacora-web-2.vercel.app/',
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser()); 

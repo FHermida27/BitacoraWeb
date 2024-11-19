@@ -17,7 +17,7 @@ export const register = async (req, res) => {
             username,
             email,
             password: passwordHash,
-            // role: role || 'usuario', // Asignar un rol por defecto si no se especifica
+            // role: role || 'colaborador', // Asignar un rol por defecto si no se especifica
             role: role,
         });
 
@@ -39,30 +39,38 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const { email, password } = req.body;
-
     try {
+        const { email, password } = req.body;
+        
         const userFound = await User.findOne({ email });
-
-        if (!userFound) return res.status(400).json({ message: "User not found" });
+        if (!userFound) {
+            return res.status(400).json({ message: "Usuario no encontrado" });
+        }
 
         const isMatch = await bcrypt.compare(password, userFound.password);
-
-        if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta" });
+        if (!isMatch) {
+            return res.status(400).json({ message: "Contraseña incorrecta" });
+        }
 
         const token = await createAccessToken({ id: userFound._id });
 
-        res.cookie("token", token);
-        res.json({
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: 'strict'
+        });
+
+        return res.json({
             id: userFound._id,
             username: userFound.username,
             email: userFound.email,
-            role: userFound.role, // Incluir el rol en la respuesta
+            role: userFound.role,
             createdAt: userFound.createdAt,
-            updatedAt: userFound.updatedAt,
+            updatedAt: userFound.updatedAt
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Error en login:", error);
+        return res.status(500).json({ message: "Error del servidor" });
     }
 };
 
@@ -87,7 +95,16 @@ export const profile = async (req, res) => {
         updatedAt: userFound.updatedAt,
     });
 };
-
+//
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find({}, '-password');
+        res.json(users);
+    } catch (error) {
+        return res.status(500).json({ message: "Error al obtener usuarios" });
+    }
+};
+//
 export const verifyToken = async (req, res) => {
     const { token } = req.cookies;
 

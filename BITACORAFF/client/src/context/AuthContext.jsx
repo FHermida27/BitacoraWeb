@@ -41,15 +41,16 @@ export const AuthProvider = ({ children }) => {
    
     const signin = async (data) => {
         try {
-            const res = await loginRequest(data); // Cambia 'user' a 'data'
-            console.log(res); // Verifica la respuesta aquí
+            const res = await loginRequest(data); // Cambiado de 'user' a 'data'
+            console.log("Respuesta del servidor:", res);
             setIsAuthenticated(true);
-            setUser(res.data); // Verifica que 'res.data' contiene el rol del usuario
+            setUser(res.data); // Cambiado de res.user a res.data
         } catch (error) {
+            console.error("Error completo:", error);
             if (error.response && Array.isArray(error.response.data)) {
                 setErrors(error.response.data);
             } else {
-                setErrors([error.response?.data?.message || 'Inicio de sesión fallido']);
+                setErrors([error.response?.data?.message || 'Error en el inicio de sesión']);
             }
         }
     };
