@@ -128,7 +128,7 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p className="flex gap-x-2 justify-between">
+        <p className="justify-between">
           ¿Ya tienes una cuenta?{" "}
           <Link to="/login" className="register-link">
             Inicia sesión
