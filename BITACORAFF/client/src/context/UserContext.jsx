@@ -65,7 +65,7 @@ export function UserProvider({ children }) {
     return (
         <UserContext.Provider value={{
             users,
-            getUsers,  // Asegúrate de exportar getUsers
+            getUsers,  
             createUser,
             deleteUser,
             updateUser

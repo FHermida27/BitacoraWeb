@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage'
 import BitacorasPage from './pages/BitacorasPage'
 import BitacoraFormPage from './pages/BitacoraFormPage'
 import ProfilePage from './pages/ProfilePage'
+import BitacoraDetailPage from './pages/BitacoraDetailPage'
 
 import ProtectedRoute from './ProtectedRoute'
 import { BitacoraProvider } from './context/BitacorasContext'
@@ -29,6 +30,7 @@ const App = () => {
                 <Route path='/add-bitacora' element={<BitacoraFormPage />} />
                 <Route path='/bitacoras/:id' element={<BitacoraFormPage />} />
                 <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/bitacora/:id' element={<BitacoraDetailPage />} />
               </Route>
             </Routes>
           </main>

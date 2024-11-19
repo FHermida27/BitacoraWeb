@@ -13,8 +13,7 @@ const RegisterPage = () => {
   const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
 
-  const [registerStatus, setRegisterStatus] = useState(null); // Estado para manejar el mensaje de éxito o error
-
+  const [registerStatus, setRegisterStatus] = useState(null);
   useEffect(() => {
     if (isAuthenticated) navigate("/bitacoras");
   }, [isAuthenticated, navigate]);

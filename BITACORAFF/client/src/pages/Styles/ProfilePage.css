@@ -11,6 +11,12 @@
     padding: auto;
 }
 
+.bitacoras-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias filas */
+    justify-content: space-between; /* Espacio entre columnas */
+}
+
 /* Sección de perfil */
 .profile-sections {
     display: grid;
@@ -29,7 +35,7 @@
     color: #333;
 }
 
-h3{
+h3 {
     text-align: center;
     justify-content: center;
 }
@@ -53,6 +59,7 @@ h3{
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
+    flex-direction: column;
     color: #333;
 }
 
@@ -67,11 +74,21 @@ h3{
     font-size: 1rem;
 }
 
+/* Contenedor de las bitácoras */
+.bitacoras-list {
+    display: flex;             /* Cambiar a flexbox */
+    flex-direction: column;    /* Asegura que los botones se acomoden en columna */
+    gap: 1rem;                 /* Espacio entre los botones */
+    width: 100%;               /* Asegura que ocupe todo el ancho disponible */
+    margin: 0;                 /* Eliminar márgenes que puedan interferir */
+    padding: 0;                /* Eliminar padding que pueda interferir */
+}
+
 /* Estilos de los botones de las bitácoras */
 .bitacora-button {
-    display: inline-block;
-    margin: 0.5rem 0;
+    display: block;            /* Asegura que los botones se comporten como bloques */
     text-decoration: none;
+    width: 100%;               /* Los botones ocupan todo el ancho disponible */
 }
 
 .bitacora-button button {
@@ -89,6 +106,7 @@ h3{
 .bitacora-button button:hover {
     background-color: #388e3c; /* Verde más oscuro al pasar el mouse */
 }
+
 
 /* Cuando no hay bitácoras creadas */
 .bitacoras-info p {
