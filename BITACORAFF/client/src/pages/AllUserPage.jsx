@@ -9,15 +9,17 @@ const AllUserPage = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                await getUsers();  // Aquí estamos llamando a la función getUsers
+                console.log("Iniciando fetch de usuarios...");
+                await getUsers();
+                console.log("Usuarios obtenidos:", users); // Agregar este log
             } catch (err) {
                 setError('Error al obtener los usuarios');
-                console.error("Error al obtener los usuarios:", err);
+                console.error("Error detallado:", err);
             } finally {
                 setLoading(false);
             }
         };
-
+    
         fetchUsers();
     }, [getUsers]);
 
@@ -35,12 +37,16 @@ const AllUserPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => (
-                        <tr key={user._id}>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                        </tr>
-                    ))}
+                    {users.length > 0 ? (
+                        users.map((user) => (
+                            <tr key={user._id}>
+                                <td>{user.username}</td>
+                                <td>{user.email}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr><td colSpan="2">No hay usuarios registrados</td></tr>
+                    )}
                 </tbody>
             </table>
         </div>

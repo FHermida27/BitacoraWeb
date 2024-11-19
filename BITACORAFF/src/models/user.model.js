@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
         enum: ["administrador", "investigador", "colaborador"],
         required: true,
         default: "colaborador",
-      },
+    },
 }, {
     timestamps: true
 })

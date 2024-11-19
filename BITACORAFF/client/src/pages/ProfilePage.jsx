@@ -25,7 +25,7 @@ const ProfilePage = () => {
       <p><strong>Usuario:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>Fecha de registro:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-      <p><strong>Rol:</strong> {user.role || "No asignado"}</p>
+      <p><strong>Rol:</strong> {user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : "No asignado"}</p>
     
     </div>  
 

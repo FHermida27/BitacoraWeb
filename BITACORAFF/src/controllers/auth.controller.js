@@ -5,19 +5,20 @@ import jwt from 'jsonwebtoken'
 import { TOKEN_SECRET } from '../config.js';
 
 export const register = async (req, res) => {
-    const { email, password, username } = req.body
+    const { email, password, username, role } = req.body // Asegúrate de que el rol sea enviado en el registro
 
     try {
+        const userFound = await User.findOne({ email })
+        if (userFound) return res.status(400).json(["El correo ya está en uso"]);
 
-        const userFound = await User.findOne({email})
-        if(userFound) return res.status(400).json(["El correo ya está en uso"]);
-
-        const passwordHash = await bcrypt.hash(password, 10) //Encriptar contraseña
+        const passwordHash = await bcrypt.hash(password, 10); // Encriptar contraseña
 
         const newUser = new User({
             username,
             email,
             password: passwordHash,
+            // role: role || 'usuario', // Asignar un rol por defecto si no se especifica
+            role: role,
         });
 
         const userSaved = await newUser.save();
@@ -28,6 +29,7 @@ export const register = async (req, res) => {
             id: userSaved._id,
             username: userSaved.username,
             email: userSaved.email,
+            role: userSaved.role, // Incluir el rol en la respuesta
             createdAt: userSaved.createdAt,
             updatedAt: userSaved.updatedAt,
         });
@@ -37,17 +39,16 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     try {
+        const userFound = await User.findOne({ email });
 
-        const userFound = await User.findOne({email})
-
-        if(!userFound) return res.status(400).json({message: "User not found"});
+        if (!userFound) return res.status(400).json({ message: "User not found" });
 
         const isMatch = await bcrypt.compare(password, userFound.password);
 
-        if(!isMatch) return res.status(400).json({message: "Contraseña incorrecta"});
+        if (!isMatch) return res.status(400).json({ message: "Contraseña incorrecta" });
 
         const token = await createAccessToken({ id: userFound._id });
 
@@ -56,6 +57,7 @@ export const login = async (req, res) => {
             id: userFound._id,
             username: userFound.username,
             email: userFound.email,
+            role: userFound.role, // Incluir el rol en la respuesta
             createdAt: userFound.createdAt,
             updatedAt: userFound.updatedAt,
         });
@@ -67,39 +69,41 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
     res.cookie('token', "", {
         expires: new Date(0),
-    })
+    });
     return res.sendStatus(200);
 };
 
 export const profile = async (req, res) => {
-    const userFound = await User.findById(req.user.id)
+    const userFound = await User.findById(req.user.id);
 
-    if(!userFound) return res.status(400).json({message: "Usuario no encontrado"});
+    if (!userFound) return res.status(400).json({ message: "Usuario no encontrado" });
 
     return res.json({
         id: userFound._id,
         username: userFound.username,
         email: userFound.email,
+        role: userFound.role, // Incluir el rol en la respuesta
         createdAt: userFound.createdAt,
         updatedAt: userFound.updatedAt,
-    })
-}
+    });
+};
 
 export const verifyToken = async (req, res) => {
-    const {token} = req.cookies
+    const { token } = req.cookies;
 
-    if(!token) return res.status(401).json({ message: "No autorizado"})
+    if (!token) return res.status(401).json({ message: "No autorizado" });
 
     jwt.verify(token, TOKEN_SECRET, async (err, user) => {
-        if (err) return res.status(401).json({ message: "No autorizado"})
+        if (err) return res.status(401).json({ message: "No autorizado" });
 
-        const userFound = await User.findById(user.id)
-        if(!userFound) return res.status(401).json({ message: "No autorizado"});
+        const userFound = await User.findById(user.id);
+        if (!userFound) return res.status(401).json({ message: "No autorizado" });
 
         return res.json({
             id: userFound._id,
             username: userFound.username,
             email: userFound.email,
+            role: userFound.role, // Incluir el rol en la respuesta
         });
     });
 };

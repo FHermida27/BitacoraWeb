@@ -3,33 +3,16 @@ import { useBitacoras } from '../context/BitacorasContext';
 import './Styles/AllBitacorasPage.css';
 
 const AllBitacoraPage = () => {
-  const { getBitacoras } = useBitacoras();
-  const [bitacoras, setBitacoras] = useState([]); 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const { getBitacoras, bitacoras, loading, error } = useBitacoras(); // Obtiene los datos del contexto
 
   useEffect(() => {
-    const fetchBitacoras = async () => {
-      try {
-        const bitacorasData = await getBitacoras();
-        if (Array.isArray(bitacorasData)) {
-          setBitacoras(bitacorasData);  
-        } else {
-          throw new Error('Datos inválidos recibidos'); 
-        }
-      } catch (err) {
-        setError('No se pudieron cargar las bitácoras.');  
-      } finally {
-        setLoading(false); 
-      }
-    };
-
-    fetchBitacoras();
+    // Llama a la función de obtener las bitácoras al cargar el componente
+    getBitacoras();
   }, [getBitacoras]);
 
-  if (loading) return <p>Cargando bitácoras...</p>;  // Muestra un mensaje de carga
-  if (error) return <p>{error}</p>;  // Muestra el error si ocurrió uno
-  if (bitacoras.length === 0) return <h1>No hay Bitácoras</h1>;  // Si no hay bitácoras
+  if (loading) return <p>Cargando bitácoras...</p>;  // Muestra mensaje mientras se carga
+  if (error) return <p>{error}</p>;  // Muestra error si ocurrió uno
+  if (bitacoras.length === 0) return <h1>No hay bitácoras</h1>;  // Si no hay bitácoras
 
   return (
     <div className="all-bitacora-page">

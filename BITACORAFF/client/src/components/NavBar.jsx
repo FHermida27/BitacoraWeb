@@ -32,7 +32,7 @@ const NavBar = () => {
           <>
             <li>
               <Link to="/profile" className="btn-profile">
-                Bienvenido, {user.username}
+                Bienvenid@, {user.username}
               </Link>
             </li>
             <li>
@@ -40,6 +40,21 @@ const NavBar = () => {
                 Añadir Bitácora
               </Link>
             </li>
+            {/* Mostrar botones solo si el rol es 'administrador' */}
+            {user.role === "administrador" && (
+              <>
+                <li>
+                  <Link to="/all-bitacoras" className="btn-primary">
+                    Ver todas las Bitácoras
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/all-users" className="btn-primary">
+                    Ver usuarios
+                  </Link>
+                </li>
+              </>
+            )}
             <li>
               <Link to="/" onClick={logout}>
                 Cerrar Sesión

@@ -9,8 +9,8 @@ import bitacorasRoutes from './routes/bitacoras.routes.js'
 const app = express();
 
 app.use(cors({
-    // origin: 'http://localhost:5173',
-    origin: 'https://bitacora-web-2.vercel.app/',
+    origin: 'http://localhost:5173',
+    // origin: 'https://bitacora-web-2.vercel.app/',
     credentials: true
 }));
 app.use(morgan('dev'));

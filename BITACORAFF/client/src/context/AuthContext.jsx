@@ -42,11 +42,9 @@ export const AuthProvider = ({ children }) => {
     const signin = async (data) => {
         try {
             const res = await loginRequest(data); // Cambia 'user' a 'data'
-            console.log(res);
-            
+            console.log(res); // Verifica la respuesta aquí
             setIsAuthenticated(true);
-            setUser(res.data);
-    
+            setUser(res.data); // Verifica que 'res.data' contiene el rol del usuario
         } catch (error) {
             if (error.response && Array.isArray(error.response.data)) {
                 setErrors(error.response.data);
@@ -55,6 +53,7 @@ export const AuthProvider = ({ children }) => {
             }
         }
     };
+    
 
     const logout = () => {
         Cookies.remove("token");
@@ -71,26 +70,54 @@ export const AuthProvider = ({ children }) => {
         }
     }, [errors]);
 
+    // useEffect(() => {
+    //     async function checkLogin() {
+    //         const cookies = Cookies.get()
+
+    //         if (!cookies.token) {
+    //             setIsAuthenticated(false);
+    //             setLoading(false)
+    //             return setUser(null);
+    //         }
+    //         try {
+    //             const res = await verifyTokenRequest(cookies.token)
+    //             if (!res.data) {
+    //                 setIsAuthenticated(false)
+    //                 setLoading(false);
+    //                 return;
+    //             }
+
+    //             setIsAuthenticated(true)
+    //             setUser(res.data)
+    //             setLoading(false)
+    //         } catch (error) {
+    //             setIsAuthenticated(false)
+    //             setUser(null)
+    //             setLoading(false)
+    //         }
+    //     }
+    //     checkLogin();
+    // }
     useEffect(() => {
         async function checkLogin() {
             const cookies = Cookies.get()
-
+    
             if (!cookies.token) {
                 setIsAuthenticated(false);
-                setLoading(false)
+                setLoading(false);
                 return setUser(null);
             }
+    
             try {
                 const res = await verifyTokenRequest(cookies.token)
-                if (!res.data) {
-                    setIsAuthenticated(false)
-                    setLoading(false);
-                    return;
+                if (res.data && res.data.role) {
+                    setIsAuthenticated(true);
+                    setUser(res.data);
+                } else {
+                    setIsAuthenticated(false);
+                    setUser(null);
                 }
-
-                setIsAuthenticated(true)
-                setUser(res.data)
-                setLoading(false)
+                setLoading(false);
             } catch (error) {
                 setIsAuthenticated(false)
                 setUser(null)
@@ -98,7 +125,8 @@ export const AuthProvider = ({ children }) => {
             }
         }
         checkLogin();
-    }, [])
+    }
+    , [])
 
     return (
         <AuthContext.Provider value={{
