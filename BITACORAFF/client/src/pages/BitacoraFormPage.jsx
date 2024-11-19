@@ -195,7 +195,7 @@ const BitacorasFormPage = () => {
                             <label htmlFor="fotografias">URLs de Fotografías</label>
                             <textarea
                                 {...register('fotografias', { required: true })}
-                                placeholder="Ingrese las URLs de las fotografías (una por línea)"
+                                placeholder="Ingrese las URLs de las fotografías"
                             />
                             {errors.fotografias && <p className="error-message">Este campo es requerido</p>}
                         </div>
