@@ -4,13 +4,13 @@ import BitacoraCard from "../components/BitacoraCard";
 import "./Styles/BitacorasPage.css"
 
 const BitacorasPage = () => {
-  const { getBitacoras, bitacoras } = useBitacoras();
+  const { getUserBitacoras, bitacoras } = useBitacoras();
 
   useEffect(() => {
-    getBitacoras();
+    getUserBitacoras();
   }, []);
 
-  if (bitacoras.length === 0) return (<h1>No hay Bitácoras</h1>)
+  if (bitacoras.length === 0) return (<h1>No tienes bitácoras registradas</h1>)
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">

@@ -1,39 +1,49 @@
-import { createContext, useContext, useState } from "react";
-import {
-    createBitacoraRequest,
-    getBitacorasRequest,
-    deleteBitacoraRequest,
-    getBitacoraRequest,
-    updateBitacoraRequest,
-} from '../api/bitacoras';
+import { createContext, useContext, useState } from 'react'
+import { 
+    createBitacoraRequest, 
+    deleteBitacoraRequest, 
+    getBitacoraRequest, 
+    updateBitacoraRequest, 
+    getAllBitacorasRequest, 
+    getUserBitacorasRequest 
+} from '../api/bitacoras'
 
 const BitacoraContext = createContext();
 
 export const useBitacoras = () => {
     const context = useContext(BitacoraContext);
-    if (!context) {
-        throw new Error("useBitacoras debe ser usado dentro de un BitacoraProvider");
-    }
+    if (!context) throw new Error("useBitacoras must be used within a BitacoraProvider");
     return context;
-};
+}
 
-export function BitacoraProvider({ children }) {
+export const BitacoraProvider = ({ children }) => {
     const [bitacoras, setBitacoras] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const getBitacoras = async () => {
-        setLoading(true);
-        setError(null);
+    // Para obtener todas las bitácoras (admin)
+    const getAllBitacoras = async () => {
         try {
-            const res = await getBitacorasRequest(); // Solicita todas las bitácoras
-            if (Array.isArray(res.data)) {
-                setBitacoras(res.data);  // Establece las bitácoras en el estado
-            } else {
-                throw new Error("Datos inválidos recibidos");
-            }
-        } catch (err) {
-            setError("No se pudieron cargar las bitácoras.");
+            setLoading(true);
+            const res = await getAllBitacorasRequest();
+            setBitacoras(res.data);
+        } catch (error) {
+            console.error(error);
+            setError('Error al cargar las bitácoras');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Para obtener las bitácoras del usuario actual
+    const getUserBitacoras = async () => {
+        try {
+            setLoading(true);
+            const res = await getUserBitacorasRequest();
+            setBitacoras(res.data);
+        } catch (error) {
+            console.error(error);
+            setError('Error al cargar tus bitácoras');
         } finally {
             setLoading(false);
         }
@@ -42,9 +52,11 @@ export function BitacoraProvider({ children }) {
     const createBitacora = async (bitacora) => {
         try {
             const res = await createBitacoraRequest(bitacora);
-            setBitacoras([...bitacoras, res.data]); // Agrega la nueva bitácora al estado
+            setBitacoras([...bitacoras, res.data]);
+            return res.data;
         } catch (error) {
-            console.error("Error al crear la bitácora:", error);
+            console.error(error);
+            setError('Error al crear la bitácora');
         }
     };
 
@@ -52,10 +64,11 @@ export function BitacoraProvider({ children }) {
         try {
             const res = await deleteBitacoraRequest(id);
             if (res.status === 204) {
-                setBitacoras(bitacoras.filter((bitacora) => bitacora._id !== id)); // Elimina la bitácora del estado
+                setBitacoras(bitacoras.filter(bitacora => bitacora._id !== id));
             }
         } catch (error) {
-            console.error("Error al eliminar la bitácora:", error);
+            console.error(error);
+            setError('Error al eliminar la bitácora');
         }
     };
 
@@ -64,35 +77,35 @@ export function BitacoraProvider({ children }) {
             const res = await getBitacoraRequest(id);
             return res.data;
         } catch (error) {
-            console.error("Error al obtener la bitácora:", error);
+            console.error(error);
+            setError('Error al obtener la bitácora');
         }
     };
 
     const updateBitacora = async (id, bitacora) => {
         try {
             const res = await updateBitacoraRequest(id, bitacora);
-            setBitacoras((prev) =>
-                prev.map((b) => (b._id === id ? res.data : b)) // Actualiza la bitácora en el estado
-            );
+            setBitacoras(bitacoras.map(b => b._id === id ? res.data : b));
+            return res.data;
         } catch (error) {
-            console.error("Error al actualizar la bitácora:", error);
+            console.error(error);
+            setError('Error al actualizar la bitácora');
         }
     };
 
     return (
-        <BitacoraContext.Provider
-            value={{
-                bitacoras,
-                createBitacora,
-                getBitacoras,
-                deleteBitacora,
-                getBitacora,
-                updateBitacora,
-                loading,
-                error,
-            }}
-        >
+        <BitacoraContext.Provider value={{
+            bitacoras,
+            loading,
+            error,
+            getAllBitacoras,
+            getUserBitacoras,
+            createBitacora,
+            deleteBitacora,
+            getBitacora,
+            updateBitacora
+        }}>
             {children}
         </BitacoraContext.Provider>
-    );
+    )
 }

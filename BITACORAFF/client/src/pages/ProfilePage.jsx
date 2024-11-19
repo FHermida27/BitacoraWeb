@@ -1,52 +1,55 @@
+import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useBitacoras } from "../context/BitacorasContext";
-import { Link } from "react-router-dom"; 
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Styles/ProfilePage.css";
 
 const ProfilePage = () => {
   const { user } = useAuth();
-  const { getBitacoras, bitacoras } = useBitacoras();
+  const { getUserBitacoras, bitacoras } = useBitacoras();
 
   useEffect(() => {
-    if (user) {
-      getBitacoras();
-    }
-  }, [user, getBitacoras]);
+    getUserBitacoras();
+  }, []);
+
+  // Función para capitalizar la primera letra
+  const capitalizeFirstLetter = (string) => {
+    return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
+  };
 
   return (
     <div className="profile-container">
-      <h2>Perfil de Usuario</h2>
-
       <div className="profile-sections">
-    {/* Información del usuario */}
-    <div className="profile-info">
-      <h3>Información del usuario</h3>
-      <p><strong>Usuario:</strong> {user.username}</p>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Fecha de registro:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-      <p><strong>Rol:</strong> {user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : "No asignado"}</p>
-    
-    </div>  
-
-    {/* Bitácoras creadas */}
-    <div className="bitacoras-info">
-    <h3>Bitácoras Creadas</h3>
-    {bitacoras && bitacoras.length > 0 ? (
-        <div className="bitacoras-container">
-            <div className="bitacoras-list">
-                {bitacoras.map((bitacora, index) => (
-                    <Link key={index} to={`/bitacora/${bitacora._id}`} className="bitacora-button">
-                        <button>{bitacora.titulo}</button>
-                    </Link>
-                ))}
-            </div>
+        {/* Sección de información del usuario */}
+        <div className="profile-info">
+          <h3>Información del Usuario</h3>
+          <p><strong>Usuario:</strong> {user.username}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Rol:</strong> {capitalizeFirstLetter(user.role)}</p>
         </div>
-    ) : (
-        <p>No tienes bitácoras creadas.</p>
-    )}
-</div>
-  </div>
+
+        {/* Sección de bitácoras */}
+        <div className="bitacoras-info">
+          <h3>Mis Bitácoras</h3>
+          {bitacoras.length === 0 ? (
+            <p>No has creado ninguna bitácora aún.</p>
+          ) : (
+            <div className="bitacoras-list">
+              {bitacoras.map((bitacora) => (
+                <Link 
+                  to={`/bitacora/${bitacora._id}`} 
+                  key={bitacora._id} 
+                  className="bitacora-button"
+                >
+                  <button>
+                    {bitacora.titulo}
+                  </button>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

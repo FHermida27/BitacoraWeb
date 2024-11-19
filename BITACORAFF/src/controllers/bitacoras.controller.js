@@ -1,15 +1,26 @@
 import Bitacora from '../models/bitacora.model.js'
 
-export const getBitacoras = async (req, res) => {
+// Para AllBitacorasPage (todas las bitácoras)
+export const getAllBitacoras = async (req, res) => {
     try {
-        const bitacoras = await Bitacora.find({
-            user: req.user.id
-        }).populate('user')
-        res.json(bitacoras)
+        const bitacoras = await Bitacora.find()
+            .populate('user', 'username role');
+        res.json(bitacoras);
     } catch (error) {
-        return res.status(500).json({ message: "Algo salió mal" })
+        return res.status(500).json({ message: "Algo salió mal" });
     }
-}
+};
+
+// Para BitacorasPage (bitácoras del usuario actual)
+export const getUserBitacoras = async (req, res) => {
+    try {
+        const bitacoras = await Bitacora.find({ user: req.user.id })
+            .populate('user', 'username role');
+        res.json(bitacoras);
+    } catch (error) {
+        return res.status(500).json({ message: "Error al obtener las bitácoras del usuario" });
+    }
+};
 
 export const createBitacora = async (req, res) => {
     try {

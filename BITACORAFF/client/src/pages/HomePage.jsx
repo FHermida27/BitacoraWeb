@@ -5,10 +5,10 @@ import { useBitacoras } from "../context/BitacorasContext";
 import "./Styles/HomePage.css";
 
 const HomePage = () => {
-  const { bitacoras, getBitacoras } = useBitacoras();
+  const { getUserBitacoras, bitacoras } = useBitacoras();
 
   useEffect(() => {
-    getBitacoras();
+    getUserBitacoras();
   }, []);
 
   return (

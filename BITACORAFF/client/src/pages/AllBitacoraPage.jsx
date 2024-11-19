@@ -1,38 +1,64 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useBitacoras } from '../context/BitacorasContext';
 import './Styles/AllBitacorasPage.css';
 
 const AllBitacoraPage = () => {
-  const { getBitacoras, bitacoras, loading, error } = useBitacoras(); // Obtiene los datos del contexto
+  const { getAllBitacoras, bitacoras, loading, error } = useBitacoras();
 
   useEffect(() => {
-    // Llama a la función de obtener las bitácoras al cargar el componente
-    getBitacoras();
-  }, [getBitacoras]);
+    getAllBitacoras();
+  }, []);
 
-  if (loading) return <p>Cargando bitácoras...</p>;  // Muestra mensaje mientras se carga
-  if (error) return <p>{error}</p>;  // Muestra error si ocurrió uno
-  if (bitacoras.length === 0) return <h1>No hay bitácoras</h1>;  // Si no hay bitácoras
+  // Función para capitalizar la primera letra
+  const capitalizeFirstLetter = (string) => {
+    return string ? string.charAt(0).toUpperCase() + string.slice(1) : '';
+  };
+
+
+  if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
     <div className="all-bitacora-page">
       <h2>Lista de Bitácoras</h2>
-      <table className="bitacoras-table">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Fecha de Creación</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bitacoras.map((bitacora) => (
-            <tr key={bitacora._id}>
-              <td>{bitacora.title}</td>
-              <td>{new Date(bitacora.createdAt).toLocaleDateString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="bitacoras-grid">
+        {bitacoras.length > 0 ? (
+          bitacoras.map((bitacora) => (
+            <div key={bitacora._id} className="bitacora-card">
+              <h3 className="bitacora-title">{bitacora.titulo}</h3>
+              <div className="bitacora-info">
+                <p>
+                  <span>Creador:</span> {bitacora.user?.username || 'Usuario desconocido'}
+                </p>
+                <p>
+                  <span>Rol:</span> {capitalizeFirstLetter(bitacora.user?.role || 'No especificado')}
+                </p>
+                <p>
+                  <span>Localización:</span> {bitacora.localizacion_geografica}
+                </p>
+                <p>
+                  <span>Especies:</span> {bitacora.detalles_especies_recolectadas}
+                </p>
+                <p>
+                  <span>Fecha:</span> {new Date(bitacora.createdAt).toLocaleDateString()}
+                </p>
+                <p>
+                  <span>Condiciones Climáticas:</span> {bitacora.condiciones_climaticas_durante_muestreo}
+                </p>
+                <p>
+                  <span>Descripción del Hábitat:</span> {bitacora.descripcion_habitat}
+                </p>
+                {bitacora.observaciones_adicionales && (
+                  <p>
+                    <span>Observaciones:</span> {bitacora.observaciones_adicionales}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="no-bitacoras">No hay bitácoras registradas</p>
+        )}
+      </div>
     </div>
   );
 };

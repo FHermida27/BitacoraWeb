@@ -32,7 +32,7 @@ const NavBar = () => {
           <>
             <li>
               <Link to="/profile" className="btn-profile">
-                Bienvenid@, {user.username}
+                Bienvenido/a, {user.username}
               </Link>
             </li>
             <li>
